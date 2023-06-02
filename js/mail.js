@@ -1,21 +1,32 @@
-// faccio una lista di mail
-const mailList = ['giacomo@live.it', 'matteo@live.it', 'luca@live.it'];
-console.table (mailList);
+// prendo gli elementi dal dom
+const emailElement = document.getElementById('email');
+const buttonElement = document.querySelector('button');
+const messageElement = document.getElementById('message');
 
-// chiedo all'utente di inserire una mail
- const insertMail = prompt('Inserisci una mail');
+// preparo una lista di email autorizzate
+const allowedEmails = ['giacomo@live.it' , 'matteo@live.it' , 'luca@live.it'];
 
-// controllo che la mail dell'utente sia nella lista
-for ( let i=0; i < mailList.length; i++){
+// al click del bottone...
+buttonElement.addEventListener('click' , function(){
 
-   userMail = mailList[i];
+    // preparo un messaggio
+    let isAllowed = false;
 
-// SE la mail dell'utente è presente in lista
-    if(userMail === insertMail){
-// scrivo benvenuto
-        console.log('Benvenuto');
-    } else{
-// scrivo mail non trovata
-        console.log('Mail non trovata');
+    // raccolgo il valore dell'input
+    const userEmail = emailElement.value.trim();
+
+    // controllo le mail dentro la lista
+    for(let i = 0; i < allowedEmails.length && isAllowed === false; i++){
+        const email = allowedEmails[i];
+        console.log('mail del giro corrente: ' , email);
+        console.log('mail inserita dall\'utente: ' , userEmail);
+        if(email === userEmail){
+            isAllowed = true;
+        }
     }
-}
+
+    // stampo il messaggio
+    const result = isAllowed ? 'Sei autorizzato' : 'Non sei autorizzato';
+    messageElement.innerText = result;
+
+})
